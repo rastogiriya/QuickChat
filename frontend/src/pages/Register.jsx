@@ -21,10 +21,17 @@ function Register() {
     draggable: true,
     theme: "dark",
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("chat-app-user")) {
+      navigate("/");
+    }
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      console.log("in validation", registerRoute);
+      // console.log("in validation", registerRoute);
       const { password, username, email } = values;
       const { data } = await axios.post(registerRoute, {
         username,
