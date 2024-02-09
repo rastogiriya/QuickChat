@@ -29,6 +29,7 @@ export default function SetAvatar() {
   }, [navigate]);
 
   const setProfilePicture = async () => {
+    console.log("ria");
     try {
       if (selectedAvatar === undefined) {
         toast.error("Please select an avatar", toastOptions);
@@ -75,7 +76,7 @@ export default function SetAvatar() {
     }
 
     fetchData().catch(console.error); // It's a good practice to catch any errors from the promise.
-  }, []);
+  }, [api, setAvatars, setIsLoading]);
 
   return (
     <>
@@ -110,9 +111,9 @@ export default function SetAvatar() {
           <button onClick={setProfilePicture} className="submit-btn">
             Set as Profile Picture
           </button>
+          <ToastContainer />
         </Container>
       )}
-      <ToastContainer />
     </>
   );
 }
