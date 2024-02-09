@@ -76,7 +76,7 @@ export default function SetAvatar() {
     }
 
     fetchData().catch(console.error); // It's a good practice to catch any errors from the promise.
-  }, [api, setAvatars, setIsLoading]);
+  }, [setAvatars, setIsLoading, api]);
 
   return (
     <>
