@@ -43,10 +43,9 @@ function Chat() {
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
-  console.log(currentChat);
+
   return (
     <Container>
-      {console.log(currentChat)}
       <div className="container">
         <Contacts
           contacts={contacts}

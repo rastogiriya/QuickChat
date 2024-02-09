@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { BiPowerOff } from "react-icons/bi";
+
 export default function Logout() {
   const navigate = useNavigate();
   const handleClick = async () => {
