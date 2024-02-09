@@ -75,7 +75,7 @@ export default function SetAvatar() {
     }
 
     fetchData().catch(console.error); // It's a good practice to catch any errors from the promise.
-  }, []);
+  }, [setAvatars, setIsLoading, api]);
 
   return (
     <>
@@ -110,9 +110,9 @@ export default function SetAvatar() {
           <button onClick={setProfilePicture} className="submit-btn">
             Set as Profile Picture
           </button>
+          <ToastContainer />
         </Container>
       )}
-      <ToastContainer />
     </>
   );
 }
