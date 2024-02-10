@@ -6,26 +6,28 @@ export default function ChatContainer({ currentChat }) {
   const handleSendMsg = async (msg) => {};
 
   return (
-    <Container>
-      {console.log(currentChat)};
-      <div className="chat-header">
-        <div className="user-details">
-          <div className="avatar">
-            <img
-              src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-              alt=""
-            />
+    <>
+      {currentChat && (
+        <Container>
+          <div className="chat-header">
+            <div className="user-details">
+              <div className="avatar">
+                <img
+                  src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
+                  alt="avatar"
+                />
+              </div>
+              <div className="username">
+                <h3>{currentChat.username}</h3>
+              </div>
+            </div>
+            <Logout />
           </div>
-          <div className="username">
-            <h3>{currentChat.username}</h3>
-          </div>
-        </div>
-        <Logout />
-      </div>
-      <div className="chat-messages"></div>
-      <ChatInput handleSendMsg={handleSendMsg} />
-      {console.log(ChatInput())}
-    </Container>
+          <div className="chat-messages"></div>
+          <ChatInput handleSendMsg={handleSendMsg} />
+        </Container>
+      )}
+    </>
   );
 }
 
