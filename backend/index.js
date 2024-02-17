@@ -5,13 +5,12 @@ import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 import messagesRoute from "./routes/messagesRoute.js";
+import { Server } from "socket.io";
 dotenv.config();
 
 connectDB();
 
 const app = express();
-//require("dotenv").config();
-
 app.use(cors());
 app.use(express.json());
 
@@ -22,17 +21,24 @@ const server = app.listen(process.env.PORT, () => {
   console.log(`Server Started on Port ${process.env.PORT}`);
 });
 
-// mongoose
-//   .connect(process.env.MONGO_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .then(() => {
-//     console.log("MongoDB connected successfully");
-//     const server = app.listen(process.env.PORT, () => {
-//       console.log(`Server Started on Port ${process.env.PORT}`);
-//     });
-//   })
-//   .catch((error) => {
-//     console.error("MongoDB connection error:", error);
-//   });
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+});
+
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+  global.chatSocket = socket;
+  socket.on("add-user", (userId) => {
+    onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+    }
+  });
+});
